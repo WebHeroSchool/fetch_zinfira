@@ -1,7 +1,7 @@
 let url = window.location.toString();
 
 let getUsername = (url) => {
-    let urlSplit = url.split(' ');
+    let urlSplit = url.split('=');
     let userName = urlSplit[1];
     if (userName == undefined) {
       userName = 'zinfira';
