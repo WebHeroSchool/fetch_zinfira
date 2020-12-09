@@ -1,18 +1,30 @@
 let url = window.location.toString();
+let newDate = new Date();
 
 let getUsername = (url) => {
-    let urlSplit = url.split('=');
-    let userName = urlSplit[1];
-    if (userName == undefined) {
-      userName = 'zinfira';
-    }
-    return userName;
+  let urlSplit = url.split('=');
+  let userName = urlSplit[1];
+  if (userName == undefined) {
+    userName = 'zinfira';
+  }
+  return userName;
 }
 
 let name = getUsername(url);
 
-fetch('https://api.github.com/users/' + name)
-  .then(res => res.json())
+const getNewDate = new Promise((resolve, reject) => {
+  setTimeout(() => newDate ? resolve(newDate) : reject('Информация о времени неизвестна'), 3000)
+});
+
+
+const getUserRequest = fetch('https://api.github.com/users/' + name);
+
+Promise.all([getUserRequest, getNewDate])
+  .then(([userInfoRequest, requestNewDate]) => {
+    userRequest = userInfoRequest;
+    requestDate = requestNewDate;
+  })
+  .then(res => userRequest.json())
   .then(json => {
     let avatar = json.avatar_url;
     let name = json.login;
@@ -40,9 +52,16 @@ fetch('https://api.github.com/users/' + name)
         elementForLink.appendChild(elementForHeader);
       }
 
+      let createNewDate = () => {
+        let elementForNewDate = document.createElement('h3');
+        elementForNewDate.innerHTML = requestDate;
+        document.body.appendChild(elementForNewDate);
+      }
+
       createAvatar();
       createProfile();
       createBio();
+      createNewDate();
 
     } else {
       alert('Информация о пользователе не доступна');
