@@ -3,12 +3,12 @@ let preloader = document.getElementById('preloader');
 let newDate = new Date();
 
 let getUsername = (url) => {
-  let urlSplit = url.split('=');
-  let userName = urlSplit[1];
-  if (userName == undefined) {
-    userName = 'zinfira';
-  }
-  return userName;
+    let urlSplit = url.split('=');
+    let userName = urlSplit[1];
+    if (userName == undefined) {
+      userName = 'zinfira';
+    }
+    return userName;
 }
 
 let name = getUsername(url);
