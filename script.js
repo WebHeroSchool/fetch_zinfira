@@ -1,4 +1,5 @@
 let url = window.location.toString();
+let preloader = document.getElementById('preloader');
 let newDate = new Date();
 
 let getUsername = (url) => {
@@ -58,6 +59,7 @@ Promise.all([getUserRequest, getNewDate])
         document.body.appendChild(elementForNewDate);
       }
 
+      preloader.style.display = 'none';
       createAvatar();
       createProfile();
       createBio();
